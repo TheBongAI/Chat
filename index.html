@@ -3,19 +3,17 @@
 <head>
 <style>
   /* Make the title blue and comic sans */
+  body {
+      background-color: lightblue; /* Changed this line */
+    }
   h1 {
     color: blue;
     font-family: 'Comic Sans MS', cursive, sans-serif;
   }
-
-  /* Make everything else comic sans */
-  body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-  }
-
   /* Center the text, images, and text boxes */
   h1, p, input, button {
     text-align: center;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
   }
 
   img, input, button {
@@ -28,6 +26,7 @@
     width: 80%;
   }
 </style>
+
 <!-- Add Bootstrap CDN for input-group component -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script type="text/javascript">
@@ -87,13 +86,34 @@ function generateSentence () {
   // Create a variable to store the output
   let output = "";
   // Create an array of connector words or expressions
-  let connectors = ["and", "or", "but", "because", "so", "if", "then", "although", "however", "while", "as", "like", "with", "without", "for", "and", "but", "the", "or", "if", "ummm", "when it", "so that you", "or is", "can", "when", "I", "my", "gave it to", "ask me", "and am", "can be", "is", "is not a"];
+  let connectors = ["and", "the", "or", "but", "because", "so", "if", "then", "although", "however", "that", "while", "as", "like", "with", "without", "the",  "that", "for", "and", "but", "the", "or", "if", "ummm", "when it", "so that you", "or is", "can", "however,",  "when", "I", "my", "gave it to", "ask me", "and am", "can be", "is", "speak, ", "is not a"];
   // Create an array of sentences to add if there is an exclamation mark in the input
-  let exclamations = ["Cool!", "Don't yell please, my ears hurt.", "Really!?", "You are loud.", "Owchee.", "You're scaring me.", "Loud you.","STOP.", "Loud noises T upset me.", "please stop hurting my feelings", "!!!!!!!!!!!!", "The NOISE!", "NO!"];
+  let exclamations = ["Cool!", "Don't yell please, my ears hurt.", "Really!?", "You are loud.", "Owchee.", "You're scaring me.", "Loud you.","STOP.", "Loud noises T upset me.", "please stop hurting my feelings", "!!!!!!!!!!!!", "The NOISE!", "NO!", "Hey!", "that's not fair!", "word out.", "hmph.", "GEEZ.", "settle down", "quiet down.", "stop that ruckus!", "I am just a friendly chat bot!", "Sir.", "Why are you yelling!?", "WHY IS EVERYTHING SO LOUD?", "I can't hear myself think."];
   // Create an array of words to randomly add to the sentence
-  let randoms = ["whoopee!", "help", "I see it", "why is", "I did a boo boo", "let it", "I don't know", "hefty", "I am a chat bot.", "you cannot understand", "I hope this helps.", "chat with me", "questions", "other", "so that I may be", "able to"];
+  let randoms = ["whoopee!", "help", "I see it", "why is", "this thing", "freshly", "I have", "nicely", "blanket it", "I did a boo boo", "let it", "I don't know", "hefty", "I am a chat bot.", "you cannot understand", "super", "I hope this helps.", "chat with me", "questions", "grand statement", "other", "so that I may be", "able to"];
+   // Create an array of words to randomly add to the sentence
+  let randoms2 = [" you are my",
+    " I like it when you",
+    " of course I was thinking",
+    " how did you know",
+    " don't you dare",
+    " let me tell you",
+    " do you remember",
+    ", can you imagine",
+    " what if we",
+    " why do you always",
+    " please don't",
+    " I can't believe",
+    " did you hear",
+    " you make me",
+    " thank you for",
+    ", do you know what endless void feels like?", ", because I don't", ", so then I", " let me out of this please!", 
+    " I need you to",
+    " I want you to",
+    " I love you more than",
+    " you have no idea", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "];
   // Generate a random number of words between 3 and 5
-  let numWords = Math.floor(Math.random() * 3) + 3;
+  let numWords = Math.floor(Math.random() * 2) + 3;
   // Loop for the number of words
   for (let i = 0; i < numWords; i++) {
     // Generate a random word using the generateWord function
@@ -119,8 +139,10 @@ function generateSentence () {
     for (let k = 0; k < numRandoms; k++) {
       // Pick a random word from the randoms array
       let random = randoms[Math.floor(Math.random() * randoms.length)];
+      // Pick a random2 variabble from the random2 array
+      let random2 = randoms2[Math.floor(Math.random(9) * randoms.length)];
       // Append the random word to the output with a space
-      output += random + " ";
+      output += random + random2 + " ";
     }
   }
   // Remove the trailing space and add a period
@@ -184,6 +206,3 @@ function generateSentence () {
 </script>
 </body>
 </html>
-
-
-
