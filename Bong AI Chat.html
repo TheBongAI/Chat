@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  /* Make the title blue and comic sans */
+  h1 {
+    color: blue;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+  }
+
+  /* Make everything else comic sans */
+  body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+  }
+
+  /* Center the text, images, and text boxes */
+  h1, p, input, button {
+    text-align: center;
+  }
+
+  img, input, button {
+    display: block;
+    margin: auto;
+  }
+
+  /* Make the input field wider */
+  input {
+    width: 80%;
+  }
+</style>
+<!-- Add Bootstrap CDN for input-group component -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script type="text/javascript">
+// This function will generate a random word using a Markov chain
+function generateWord () {
+  // Create a variable to store the output
+  let output = "";
+  // Create an object to store the frequencies of letters or syllables
+  let frequencies = {};
+  // Create an array to store the possible start and end characters
+  let start = [];
+  let end = [];
+  // Get the input text from the input element
+  let input = document.getElementById("input").value;
+  // Split the input text into words and store them in an array
+  let words = input.split(" ");
+  // Loop through the words array and process each word
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    // Add the first and last character of the word to the start and end arrays
+    start.push(word.charAt(0));
+    end.push(word.charAt(word.length - 1));
+    // Loop through the word and get the pairs of characters
+    for (let j = 0; j < word.length - 1; j++) {
+      let pair = word.slice(j, j + 2);
+      // Get the first character of the pair
+      let first = pair.charAt(0);
+      // If the first character is not in the frequencies object, create an array for it
+      if (!frequencies[first]) {
+        frequencies[first] = [];
+      }
+      // Add the pair of characters to the frequencies object
+      frequencies[first].push(pair);
+    }
+  }
+  // Generate a random word using the frequencies object and the start and end arrays
+  // Pick a random start character
+  output += start[Math.floor(Math.random() * start.length)];
+  // Loop until the word ends with an end character or reaches a maximum length of 10
+  while (!end.includes(output.charAt(output.length - 1)) && output.length < 10) {
+    // Get the first character of the output word
+    let first = output.charAt(output.length - 1);
+    // Get the possible pairs of characters from the frequencies object
+    let pairs = frequencies[first];
+    // If there are no possible pairs of characters, break the loop
+    if (!pairs) {
+      break;
+    }
+    // Pick a random pair of characters and append it to the word
+    output += pairs[Math.floor(Math.random() * pairs.length)].charAt(1);
+  }
+  // Return the output
+  return output;
+}
+// This function will generate a random sentence using a list of connector words or expressions
+function generateSentence () {
+  // Create a variable to store the output
+  let output = "";
+  // Create an array of connector words or expressions
+  let connectors = ["and", "but", "the", "or", "if", "ummm", "when it", "so that you", "or is", "can", "when", "I", "my", "gave it to", "ask me", "and am", "can be", "is", "is not a"];
+  // Create an array of sentences to add if there is an exclamation mark in the input
+  let exclamations = ["Cool!", "Don't yell please, my ears hurt.", "Really!?", "You are loud.", "Owchee.", "You're scaring me.", "Loud you.","STOP.", "Loud noises T upset me.", "please stop hurting my feelings", "!!!!!!!!!!!!", "The NOISE!", "NO!"];
+  // Create an array of words to randomly add to the sentence
+  let randoms = ["whoopee!", "help", "I see it", "why is", "I did a boo boo", "let it", "I don't know", "hefty", "I am a chat bot.", "you cannot understand", "I hope this helps.", "chat with me", "questions", "other", "so that I may be", "able to"];
+  // Generate a random number of words between 3 and 5
+  let numWords = Math.floor(Math.random() * 3) + 3;
+  // Loop for the number of words
+  for (let i = 0; i < numWords; i++) {
+    // Generate a random word using the generateWord function
+    let word = generateWord();
+    // Capitalize the first word of the sentence
+    if (i == 0) {
+      word = word.charAt(0).toUpperCase() + word.slice(1);
+    }
+    // Append the word to the output with a space
+    output += word + " ";
+    // Generate a random number of connectors between 0 and 2
+    let numConnectors = Math.floor(Math.random() * 3);
+    // Loop for the number of connectors
+    for (let j = 0; j < numConnectors; j++) {
+      // Pick a random connector from the connectors array
+      let connector = connectors[Math.floor(Math.random() * connectors.length)];
+      // Append the connector to the output with a space
+      output += connector + " ";
+    }
+    // Generate a random number of random words between 0 and 1
+    let numRandoms = Math.floor(Math.random() * 2);
+    // Loop for the number of random words
+    for (let k = 0; k < numRandoms; k++) {
+      // Pick a random word from the randoms array
+      let random = randoms[Math.floor(Math.random() * randoms.length)];
+      // Append the random word to the output with a space
+      output += random + " ";
+    }
+  }
+  // Remove the trailing space and add a period
+  output = output.trim() + ".";
+  // Get the input text from the input element
+  let input = document.getElementById("input").value;
+  // Check if the input has an exclamation mark
+  if (input.includes("!")) {
+    // Pick a random sentence from the exclamations array
+    let exclamation = exclamations[Math.floor(Math.random() * exclamations.length)];
+    // Generate a random number between 0 and 1
+    let position = Math.floor(Math.random() * 2);
+    // If the position is 0, add the exclamation to the start of the output
+    if (position == 0) {
+      output = exclamation + " " + output;
+    }
+    // If the position is 1, add the exclamation to the end of the output
+    else {
+      output = output + " " + exclamation;
+    }
+  }
+  // Check if the input has a question mark
+  if (input.includes("?")) {
+    // Generate a random number of m's between 1 and 6
+    let numMs = Math.floor(Math.random() * 6) + 1;
+    // Create a string of m's
+    let ms = "m".repeat(numMs);
+    // Add "um" and the m's to the start of the output
+    output = "Um" + ms + ", " + output;
+  }
+  // Display the output in the result element
+  document.getElementById("result").innerHTML = output;
+}
+</script>
+</head>
+<body>
+<h1>BONG AI Chat</h1>
+<img src="https://i.ibb.co/16mHVBY/bong.png" alt="bong" border="0">
+<p>Hello, umm I um is the Bong AI chat Y you Can T enter text!:</p>
+<!-- Use input-group component to group input and button elements -->
+<div class="input-group">
+  <input type="text" id="input" value="">
+  <div class="input-group-append">
+    <button id="linkadd" onclick="generateSentence()">Generate</button>
+  </div>
+</div>
+<p id="result"></p>
+<script>
+  // Get the input element
+  var input = document.getElementById("input");
+  // Add a keyup event listener to the input element
+  input.addEventListener("keyup", function(event) {
+    // If the user pressed the Enter key
+    if (event.keyCode === 13) {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      document.getElementById("linkadd").click();
+    }
+  });
+</script>
+</body>
+</html>
+
+
+
